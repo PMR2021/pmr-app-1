@@ -3,6 +3,7 @@ package com.example.pmrapp1;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.style.BulletSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -95,10 +96,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()) {
             case R.id.btnOK :
                 afficherChaine("click3 :" + getPseudo());
+                // Fabrication d'un Bundle de données
+                Bundle bdl = new Bundle();
+                bdl.putString("pseudo",getPseudo());
                 // Changer d'activité
                 Intent versSecondAct;
                 // Intent explicite
                 versSecondAct = new Intent(MainActivity.this,SecondeActivity.class);
+                // Ajout d'un bundle à l'intent
+                versSecondAct.putExtras(bdl);
                 startActivity(versSecondAct);
 
                 break;
