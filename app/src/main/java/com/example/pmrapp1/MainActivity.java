@@ -3,6 +3,9 @@ package com.example.pmrapp1;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +21,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.i(CAT,"onStart"); // trace d'exécution
+
+        // Récupérer une référence vers le EditText "pseudo"
+        EditText edtPseudo = findViewById(R.id.pseudo);
+        // String p = edtPseudo.toString();
+        String p = edtPseudo.getText().toString();
+
+
+        // afficher un toast avec le contenu du champ de saisie
+        Toast myToast = Toast.makeText(this,p, Toast.LENGTH_LONG);
+        myToast.show();
+
     }
 
     @Override
