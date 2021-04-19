@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">PmrApp1</string>
+    <string name="hello_app">Hello App !</string>
+    <string name="label_name">Nom :</string>
+    <string name="label_ok">OK</string>
 </resources>
