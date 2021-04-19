@@ -1,5 +1,6 @@
 package com.example.pmrapp1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -94,6 +95,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()) {
             case R.id.btnOK :
                 afficherChaine("click3 :" + getPseudo());
+                // Changer d'activité
+                Intent versSecondAct;
+                // Intent explicite
+                versSecondAct = new Intent(MainActivity.this,SecondeActivity.class);
+                startActivity(versSecondAct);
+
                 break;
             case R.id.pseudo :
                 afficherChaine("Veuillez entrer votre pseudo");
