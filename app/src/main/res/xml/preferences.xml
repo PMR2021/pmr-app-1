@@ -15,7 +15,7 @@
         android:summary="Saisie des identifiants utilisateur"
         android:title="Identifiants">
         <EditTextPreference
-            android:defaultValue=""
+            android:defaultValue='{"promo":"2020-2021","profs":[{"prenom":"tom","nom":"bou"},{"prenom":"mohamed","nom":"bou"},{"prenom":"mathieu","nom":"hau"}]}'
             android:key="login"
             android:title="Login" />
         <EditTextPreference

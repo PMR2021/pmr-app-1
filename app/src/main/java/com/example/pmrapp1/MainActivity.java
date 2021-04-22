@@ -138,10 +138,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     editor.commit();
                 }
 
-                /*
                 // Fabrication d'un Bundle de données
                 Bundle bdl = new Bundle();
-                bdl.putString("pseudo",edtPseudo.getText().toString());
+                bdl.putString("json",edtPseudo.getText().toString());
                 // Changer d'activité
                 Intent versSecondAct;
                 // Intent explicite
@@ -149,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Ajout d'un bundle à l'intent
                 versSecondAct.putExtras(bdl);
                 startActivity(versSecondAct);
-                */
+
                 break;
 
             case R.id.pseudo :

@@ -25,7 +25,7 @@ public class GestionPreferences extends PreferenceActivity implements Preference
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         Toast t = Toast.makeText(this,
-                "click cb :" +newValue.toString()
+                "click cb :" + newValue.toString()
                         + " pref manipulée : " + preference.getKey(),Toast.LENGTH_SHORT);
         t.show();
         if (newValue.equals(false)) {
