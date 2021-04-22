@@ -58,7 +58,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
         // TODO: afficher un toast indiquant quel item a été cliqué
         switch(id) {
-            case R.id.menu_account : alerter("Menu : click sur Compte");
+            case R.id.menu_network :
+                Intent iReseau = new Intent(this,Reseau.class);
+                startActivity(iReseau);
                 break;
             case R.id.menu_settings :
                 //TODO : afficher l'activité GestionPreferences

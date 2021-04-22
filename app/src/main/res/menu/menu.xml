@@ -7,7 +7,7 @@
         android:title="Préférences"/>
 
     <item
-        android:id="@+id/menu_account"
+        android:id="@+id/menu_network"
         app:showAsAction="never"
-        android:title="Compte"/>
+        android:title="Réseau"/>
 </menu>
