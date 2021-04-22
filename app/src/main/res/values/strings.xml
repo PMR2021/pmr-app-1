@@ -3,4 +3,5 @@
     <string name="hello_app">Hello App !</string>
     <string name="label_name">Nom :</string>
     <string name="label_ok">OK</string>
+    <string name="se_souvenir_de_moi">Se souvenir de moi</string>
 </resources>

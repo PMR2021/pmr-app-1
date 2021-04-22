@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,30 +19,32 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String CAT = "EDPMR";
+    private EditText edtPseudo;
+    private CheckBox cbRemember;
+    private Button btnOK;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i(CAT,"onCreate"); // trace d'exécution
 
-        Button btnOK = findViewById(R.id.btnOK);
-        // Associer un gestionnaire d'événement au clic sur boutonOK
-        /* // écouteur anonyme
+        btnOK = findViewById(R.id.btnOK);
+        edtPseudo = findViewById(R.id.pseudo);
+        cbRemember = findViewById(R.id.cbRemember);
 
-         btnOK.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 afficherChaine("click2 :" + getPseudo());
-             }
-         });*/
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sp.edit();
 
          // Demande à MainActivity d'implémenter l'interface onClickListener
         btnOK.setOnClickListener(this);
-        EditText edtPseudo = findViewById(R.id.pseudo);
-        edtPseudo.setOnClickListener(this);
+        cbRemember.setOnClickListener(this);
     }
 
-    // TODO : affiche le menu si la méthode renvoie vrai
+    // affiche le menu si la méthode renvoie vrai
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    // click sur un item du menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -76,16 +80,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        // Récupérer une référence vers le EditText "pseudo"
-        EditText edtPseudo = findViewById(R.id.pseudo);
 
         // Relire les préférences partagées de l'application
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        String l = sp.getString("login","login inconnu");
+        Boolean cbR = sp.getBoolean("remember",false);
 
-        // TODO: Insérer la valeur actuelle de la préférence 'login'
-        // dans le champ d'édition
-        edtPseudo.setText(l);
+        // actualise l'état de la case à cocher
+        cbRemember.setChecked(cbR);
+
+        // SI la case est cochée, on utilise les préférences pour définir le login
+        if (cbRemember.isChecked()) {
+            String l = sp.getString("login","login inconnu");
+            edtPseudo.setText(l);
+        } else {
+            // Sinon, le champ doit être vide
+            edtPseudo.setText("");
+        }
+
     }
 
     @Override
@@ -100,36 +110,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i(CAT,"onRestart"); // trace d'exécution
     }
 
-    public void click1(View view) {
-        // Récupérer une référence vers le EditText "pseudo"
-
-        afficherChaine("click1 :" + getPseudo());
-
-    }
-
-    private String getPseudo() {
-        EditText edtPseudo = findViewById(R.id.pseudo);
-        // String p = edtPseudo.toString();
-        return edtPseudo.getText().toString();
-    }
-
-    private void afficherChaine(String s){
-        // afficher un toast avec le contenu du champ de saisie
-        Toast myToast = Toast.makeText(this,s, Toast.LENGTH_LONG);
-        myToast.show();
-
-        Log.i(CAT,s);
-
-    }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
+            // TODO : prévoir le cas où la case est clickée
+            case R.id.cbRemember :
+                alerter("click sur CB");
+
+                // On clique sur la case : il faut mettre à jour les préférences
+                editor.putBoolean("remember", cbRemember.isChecked());
+                editor.commit();
+
+                break;
+
             case R.id.btnOK :
-                afficherChaine("click3 :" + getPseudo());
+                alerter("Click sur btnOK");
+                // TODO : si la case est cochée,
+                // on enregistre le login dans les préférences
+                if (cbRemember.isChecked()) {
+                    editor.putString("login", edtPseudo.getText().toString());
+                    editor.commit();
+                }
+
+                /*
                 // Fabrication d'un Bundle de données
                 Bundle bdl = new Bundle();
-                bdl.putString("pseudo",getPseudo());
+                bdl.putString("pseudo",edtPseudo.getText().toString());
                 // Changer d'activité
                 Intent versSecondAct;
                 // Intent explicite
@@ -137,10 +144,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Ajout d'un bundle à l'intent
                 versSecondAct.putExtras(bdl);
                 startActivity(versSecondAct);
-
+                */
                 break;
+
             case R.id.pseudo :
-                afficherChaine("Veuillez entrer votre pseudo");
+                alerter("Veuillez entrer votre pseudo");
                 break;
         }
 
