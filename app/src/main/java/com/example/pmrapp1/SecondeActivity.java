@@ -7,6 +7,10 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.internal.$Gson$Preconditions;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,12 +27,27 @@ public class SecondeActivity extends AppCompatActivity {
         Bundle bdl = this.getIntent().getExtras();
         String chaine_json = bdl.getString("json");
 
+        Log.i(CAT,chaine_json);
+        Log.i(CAT,jsonToPrettyFormat(chaine_json));
+
+        Gson gson = new Gson();
+
+        Electif pmr = gson.fromJson(chaine_json,Electif.class);
+
+        Log.i(CAT,pmr.toString());
+
         // TODO: parcourir l'objet json reçu
         // pour afficher des toasts avec les prénoms
         // de chacun des enseignants
 
         // structure typique :
-        // '{"promo":"2020-2021","profs":[{"prenom":"tom","nom":"bou"},{"prenom":"mohamed","nom":"bou"},{"prenom":"mathieu","nom":"hau"}]}'
+        // '{
+        // "promo":"2020-2021",
+        // "profs":[
+        //  {"prenom":"tom","nom":"bou"},
+        //  {"prenom":"mohamed","nom":"bou"},
+        //  {"prenom":"mathieu","nom":"hau"}
+        // ]}'
 
         try {
             // 1) transformer la chaine en objet JSON
@@ -53,5 +72,23 @@ public class SecondeActivity extends AppCompatActivity {
         Toast t = Toast.makeText(this,s,Toast.LENGTH_SHORT);
         t.show();
     }
+
+    public static String jsonToPrettyFormat(String jsonString) {
+        JSONObject json = null;
+        try {
+            json = new JSONObject(jsonString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Gson gson = new GsonBuilder()
+                .serializeNulls()
+                .disableHtmlEscaping()
+                .setPrettyPrinting()
+                .create();
+
+        return gson.toJson(json);
+    }
+
 
 }
