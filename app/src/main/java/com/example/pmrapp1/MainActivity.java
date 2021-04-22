@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.menu_settings :
                 //TODO : afficher l'activité GestionPreferences
                 alerter("Menu : click sur Préférences");
+                Intent iGP = new Intent(this,GestionPreferences.class);
+                startActivity(iGP);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // TODO: Insérer la valeur actuelle de la préférence 'login'
         // dans le champ d'édition
+        edtPseudo.setText(l);
     }
 
     @Override
