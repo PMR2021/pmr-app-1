@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.style.BulletSpan;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,8 +39,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         edtPseudo.setOnClickListener(this);
     }
 
-    // TODO : afficher le pseudo dans un toast lors de l'appui sur OK
-    // comment associer un gestionnaire d'événement sur btnOK
+    // TODO : affiche le menu si la méthode renvoie vrai
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        // R.menu.menu dénote le fichier  res/menu/menu.xml
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        // TODO: afficher un toast indiquant quel item a été cliqué
+        switch(id) {
+            case R.id.menu_account : alerter("Menu : click sur Compte");
+                break;
+            case R.id.menu_settings : alerter("Menu : click sur Préférences");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void alerter(String s) {
+        Log.i(CAT,s);
+        Toast t = Toast.makeText(this,s,Toast.LENGTH_SHORT);
+        t.show();
+    }
 
 
     @Override
