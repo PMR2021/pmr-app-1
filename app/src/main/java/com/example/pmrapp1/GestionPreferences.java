@@ -12,4 +12,7 @@ public class GestionPreferences extends PreferenceActivity {
         //noinspection deprecation
         addPreferencesFromResource(R.xml.preferences);
     }
+
+    // TODO : comment faire pour vider les préférences lorsque l'on
+    // décoche la case depuis cette activité ?
 }

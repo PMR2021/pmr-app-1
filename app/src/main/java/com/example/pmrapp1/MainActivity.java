@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText edtPseudo;
     private CheckBox cbRemember;
     private Button btnOK;
-    SharedPreferences sp;
-    SharedPreferences.Editor editor;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -121,6 +121,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // On clique sur la case : il faut mettre à jour les préférences
                 editor.putBoolean("remember", cbRemember.isChecked());
                 editor.commit();
+                if (!cbRemember.isChecked()) {
+                    // on supprime le login des préférences
+                    editor.putString("login", "");
+                    editor.commit();
+                }
 
                 break;
 
