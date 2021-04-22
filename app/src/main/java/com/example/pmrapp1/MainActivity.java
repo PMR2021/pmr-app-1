@@ -1,6 +1,8 @@
 package com.example.pmrapp1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.style.BulletSpan;
@@ -54,7 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(id) {
             case R.id.menu_account : alerter("Menu : click sur Compte");
                 break;
-            case R.id.menu_settings : alerter("Menu : click sur Préférences");
+            case R.id.menu_settings :
+                //TODO : afficher l'activité GestionPreferences
+                alerter("Menu : click sur Préférences");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -70,17 +74,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(CAT,"onStart"); // trace d'exécution
-
         // Récupérer une référence vers le EditText "pseudo"
         EditText edtPseudo = findViewById(R.id.pseudo);
-        // String p = edtPseudo.toString();
-        String p = edtPseudo.getText().toString();
 
-        // afficher un toast avec le contenu du champ de saisie
-        Toast myToast = Toast.makeText(this,p, Toast.LENGTH_LONG);
-        myToast.show();
+        // Relire les préférences partagées de l'application
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String l = sp.getString("login","login inconnu");
 
+        // TODO: Insérer la valeur actuelle de la préférence 'login'
+        // dans le champ d'édition
     }
 
     @Override

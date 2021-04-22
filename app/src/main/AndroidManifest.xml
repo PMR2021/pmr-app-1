@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondeActivity"></activity>
+        <activity android:name=".GestionPreferences"></activity>
     </application>
 
 </manifest>
